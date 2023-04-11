@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemple de blocs</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      background: linear-gradient(to top, #005aa7, #fffde4);
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    .chat {
+      font-size: 100px;
+    }
+
+    .btn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      border: 0;
+      border-radius: 10px;
+      height: 40px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="btn">Créer un 😺</button>
+
+  <script>
+    const btn = document.querySelector('.btn');
+    const body = document.querySelector('body');
+
+    btn.addEventListener('click', () => {
+      const chat = document.createElement('div');
+      chat.classList.add('chat');
+      chat.textContent = '😺';
+      body.appendChild(chat);
+    });
+    //Chaque chat doit avoir une opacité de 100%. Cependant, chaque clic doit réduire son opacité de 10%. Autrement dit, si un chat a été cliqué 3x, il devrait avoir une opacité de 70%.
+    body.addEventListener('click', (e) => {
+      if (e.target.classList.contains('chat')) {
+        const chat = e.target;
+        const opacity = Number(chat.style.opacity) || 1;
+        chat.style.opacity = opacity - 0.1;
+        //Si un chat atteint une opacité de 0% (ou moins  🤷‍♂️), le chat doit être retiré de la page.
+        if (opacity <= 0.1) {
+          chat.remove();
+        }
+      }
+      //Lorsqu'un chat est cliqué, déclenchez le son en pièce jointe Meow.
+      const audio = new Audio('https://ex.smnarnold.com/class-js/chats/meow.mp3');
+
+      audio.play();
+
+    }); 
+  </script>
+</body>
+
+</html>
